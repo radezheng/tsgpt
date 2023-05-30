@@ -1,0 +1,43 @@
+
+<policies>
+    <inbound>
+        <base />
+        <set-variable name="msgId" value="@{
+            int msgId = 0;
+            if (context.Request.Headers.TryGetValue("MsgId", out var msgIdValues) && msgIdValues.Any())
+            {
+                int.TryParse(msgIdValues.First(), out msgId);
+            }
+            return msgId % 2;
+        }" />
+        <choose>
+            <when condition="@((int)context.Variables["msgId"] == 0)">
+                <set-backend-service backend-id="gpt35-1" />
+            </when>
+            <otherwise>
+                <set-backend-service backend-id="gpt35-2" />
+            </otherwise>
+        </choose>
+        <cors allow-credentials="false">
+            <allowed-origins>
+                <origin>*</origin>
+            </allowed-origins>
+            <allowed-methods>
+                <method>GET</method>
+                <method>POST</method>
+            </allowed-methods>
+        </cors>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+        <set-header name="Access-Control-Allow-Origin" exists-action="override">
+            <value>*</value>
+        </set-header>        
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

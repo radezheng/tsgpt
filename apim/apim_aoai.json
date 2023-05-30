@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://<changeme_apimname>.azure-api.net"
+            "url": "https://apimaa77.azure-api.net"
         }
     ],
     "paths": {
@@ -165,7 +165,7 @@
                                     },
                                     "best_of": {
                                         "type": "integer",
-                                        "description": "Generates best_of completions server-side and returns the \"best\" (the one with the highest log probability per token). Results cannot be streamed.\nWhen used with n, best_of controls the number of candidate completions and n specifies how many to return – best_of must be greater than n.\nNote: Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for max_tokens and stop. Has maximum value of 128."
+                                        "description": "Generates best_of completions server-side and returns the best."
                                     }
                                 }
                             },

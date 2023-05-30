@@ -77,7 +77,7 @@ cd script
  ![apim_key1](./images/apim_key1.png)
  复制key:
  ![apim_key2](./images/apim_key2.png)
- 打开Web App, 在配置里更新 VUE_APP_APIM_KEY
+ 打开Web App, 在配置里更新 VUE_APP_APIM_KEY , 点击保存。
  ![apim_key3](./images/apim_key3.png)
  重启一个Web App
 

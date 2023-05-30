@@ -37,7 +37,7 @@ Write-Host "Creating resource group..."
 az group create --name $RESOURCE_GROUP_NAME --location $LOCATION
 
 Set-Location -Path $PWD
-$job = Start-Job -FilePath "apim.ps1" -ArgumentList $RESOURCE_GROUP_NAME, $LOCATION, $SVC_NAME, $API_ID, $AOAI_DEPLOYMENT_ID, $AOAI_MODEL_ID, $AOAI_KEY, $APIM_PUBLISHER_EMAIL, $PUBLISHER
+$job = Start-Job -FilePath "apim.ps1" -ArgumentList $RESOURCE_GROUP_NAME, $LOCATION, $SVC_NAME, $API_ID, $AOAI_DEPLOYMENT_ID, $AOAI_MODEL_ID, $AOAI_KEY, $APIM_PUBLISHER_EMAIL, $PUBLISHER, $PWD
 
 # create sql server
 Write-Host "Creating Azure SQL Server..." + $SQL_SERVER_NAME

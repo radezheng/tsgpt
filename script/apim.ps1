@@ -7,11 +7,12 @@ param(
     [string]$AOAI_MODEL_ID,
     [string]$AOAI_KEY,
     [string]$APIM_PUBLISHER_EMAIL,
-    [string]$PUBLISHER
+    [string]$PUBLISHER,
+    [string]$curPath
 )
 
 
-
+Set-Location -Path $curPath
 # 创建APIM
 Write-Host "Creating APIM..." + $SVC_NAME
 az apim create --name $SVC_NAME --resource-group $RESOURCE_GROUP_NAME --location $LOCATION --sku-name Developer --publisher-email $APIM_PUBLISHER_EMAIL --publisher-name $PUBLISHER
@@ -25,8 +26,8 @@ do {
     Start-Sleep -s 30
 } until ($apimStatus -eq "Succeeded")
 
-Write-Host "Creating APIM API..." + $API_ID
-az apim api import --resource-group $RESOURCE_GROUP_NAME --service-name $SVC_NAME  --api-id $API_ID --specification-format "OpenApi" --specification-path "../apim/apim_aoai_test.json" --display-name "AzureChatGPT" --path "/"  --service-url  "https://$AOAI_DEPLOYMENT_ID.openai.azure.com/openai/deployments/${AOAI_MODEL_ID}/"
+Write-Host "Creating APIM API..." + $API_ID " " $PWD
+az apim api import --resource-group $RESOURCE_GROUP_NAME --service-name $SVC_NAME  --api-id $API_ID --specification-format "OpenApi" --specification-path "../apim/apim_aoai.json" --display-name "AzureChatGPT" --path "/"  --service-url  "https://$AOAI_DEPLOYMENT_ID.openai.azure.com/openai/deployments/${AOAI_MODEL_ID}/"
 
 Write-Host "Creating APIM Product..."
 az apim nv create --service-name $SVC_NAME -g $RESOURCE_GROUP_NAME --named-value-id AOAI-KEY --display-name 'AOAI-Key' --value $AOAI_KEY --secret true

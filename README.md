@@ -61,6 +61,11 @@ $DOCKER_IMAGE="radezheng/tsgpt:basic"
 ```
 
 - 打开powershell, 运行 script\deploy.ps1 , 等运行完。创建APIM需要大概20分钟到半小时。收到邮件后再继续下面部步骤.
+```powershell
+#需要在script目录下运行
+cd script
+.\deploy.ps1
+```
 
 ## 配置Azure资源
  - APIM策略，打开.\apim\policy.xml, 复制全部内容，粘贴到 azure portal里的apim policy。如果想用多个aoai 后端，忽略这步。参考后面多个后端的配置。

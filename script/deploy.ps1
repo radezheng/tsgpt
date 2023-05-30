@@ -4,30 +4,30 @@
 $RESOURCE_GROUP_NAME="rgOpenAIChat3"
 $LOCATION="eastasia"
 #for DB
-#ĞèÈ«ÇòÎ¨Ò»
+#éœ€å…¨çƒå”¯ä¸€
 $SQL_SERVER_NAME="<your unique sql server name>"
 $ADMIN_USERNAME="<your admin username>"
 $ADMIN_PASSWORD=Read-Host "Enter the admin password"
 $DB_NAME="dbGPT"
 
 #for APIM
-#ĞèÈ«ÇòÎ¨Ò»
+#éœ€å…¨çƒå”¯ä¸€
 $SVC_NAME="<your unique apim name>"
 $API_ID="azuregpt-api"
 $AOAI_DEPLOYMENT_ID="<your deployment id>"
 $AOAI_MODEL_ID="<your model id>"
 $AOAI_KEY=$AOAI_KEY = Read-Host "Enter the Azure OpenAI key"
-#·şÎñ´´½¨Íê³É»á·¢ÓÊ¼şÍ¨Öª
+#æœåŠ¡åˆ›å»ºå®Œæˆä¼šå‘é‚®ä»¶é€šçŸ¥
 $APIM_PUBLISHER_EMAIL="<your email>"
 $PUBLISHER="<your publisher name>"
 
 #for webapp
 $VUE_APP_APIM_HOST=$SVC_NAME + ".azure-api.net"
-#µÈ´ıAPI·şÎñ´´½¨Íê³ÉÊÖ¶¯ÔÚPortalÌîĞ´
+#ç­‰å¾…APIæœåŠ¡åˆ›å»ºå®Œæˆæ‰‹åŠ¨åœ¨Portalå¡«å†™
 $VUE_APP_APIM_KEY="xxx"
-#ĞèÈ«ÇòÎ¨Ò», ¿É¸ÄÎª×Ô¼ºÈİÒ×¼ÇµÄÃû×Ö¡£bot·ÃÎÊµÄµØÖ·Îª https://<your app name>.azurewebsites.net
+#éœ€å…¨çƒå”¯ä¸€, å¯æ”¹ä¸ºè‡ªå·±å®¹æ˜“è®°çš„åå­—ã€‚botè®¿é—®çš„åœ°å€ä¸º https://<your app name>.azurewebsites.net
 $APP_NAME="chat$(Get-Date -Format 'MMddHHmmss')"
-#Õâ¸ö¾µÏñÊÇÎÒ×Ô¼ºµÄ£¬¿ÉÒÔ²»¸Ä¡£Èç¹ûÄãĞŞºóºóÓĞ×Ô¼ºµÄ¾µÏñ£¬¿ÉÒÔ¸ÄÎª×Ô¼ºµÄ¾µÏñµØÖ·
+#è¿™ä¸ªé•œåƒæ˜¯æˆ‘è‡ªå·±çš„ï¼Œå¯ä»¥ä¸æ”¹ã€‚å¦‚æœä½ ä¿®ååæœ‰è‡ªå·±çš„é•œåƒï¼Œå¯ä»¥æ”¹ä¸ºè‡ªå·±çš„é•œåƒåœ°å€
 $DOCKER_IMAGE="radezheng/tsgpt:basic"
 
 
@@ -74,7 +74,7 @@ Invoke-Expression $sqlcmd
 
 # Create web app
 Write-Host "Creating web app plan..." + $APP_NAME + "-plan"
-az appservice plan create --name $APP_NAME'-plan' --resource-group $RESOURCE_GROUP_NAME --sku B1 --is-linux
+az appservice plan create --name $APP_NAME'-plan' --resource-group $RESOURCE_GROUP_NAME --sku B3 --is-linux
 
 Write-Host "Creating web app..." + $APP_NAME
 az webapp create --resource-group $RESOURCE_GROUP_NAME --plan $APP_NAME'-plan'  --name $APP_NAME --deployment-container-image-name $DOCKER_IMAGE
@@ -98,4 +98,4 @@ Write-Host "Waiting for apim job to finish...run this command to check the log:"
  " Get-Job | Sort-Object -Property PSBeginTime -Descending | Select-Object -First 1 | Receive-Job"
 Get-Job | Sort-Object -Property PSBeginTime -Descending | Select-Object -First 1 | Receive-Job
 
-Write-Host "ĞèÒªÊÖ¶¯ ¸üĞÂ apim policy(./apim/policy.xml), ²¢»ñÈ¡ apim key ¸üĞÂµ½ web app µÄ»·¾³±äÁ¿ÖĞ"
+Write-Host "éœ€è¦æ‰‹åŠ¨ æ›´æ–° apim policy(./apim/policy.xml), å¹¶è·å– apim key æ›´æ–°åˆ° web app çš„ç¯å¢ƒå˜é‡ä¸­"

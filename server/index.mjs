@@ -26,7 +26,7 @@ const config = {
 
 app.use(express.json());
 const apiUrl =
-  "https://"+ process.env.VUE_APP_APIM_HOST + "/chat/completions?api-version=2023-05-15";
+  "https://" + process.env.VUE_APP_APIM_HOST + "/chat/completions?api-version=2023-05-15";
 
 const apiKey = process.env.VUE_APP_APIM_KEY;
 
@@ -45,7 +45,7 @@ app.get("/api/gptapps/list", async (req, res) => {
 
 // Add a new app
 app.post("/api/gptapps/add", async (req, res) => {
-  const { name, description, dataground, temperature, max_tokens, top_p,  welcome } = req.body;
+  const { name, description, dataground, temperature, max_tokens, top_p, welcome } = req.body;
 
   try {
     await sql.connect(config);
@@ -61,8 +61,8 @@ app.get("/api/gptapps/:appName", async (req, res) => {
   try {
     await sql.connect(config);
     const result = await sql.query`SELECT * FROM tblGPTApps where name = ${req.params.appName}`;
-    if(result.recordset.length > 0) {
-    res.json(result.recordset);
+    if (result.recordset.length > 0) {
+      res.json(result.recordset);
     } else {
       res.status(404).send("App not found");
     }
@@ -124,7 +124,7 @@ app.post("/api/chat/completions/stream", (req, res) => {
       proxyRes.on("error", (error) => {
         console.error("Error with the request:", error.message);
         res.statusCode = 500;
-        res.end("Error with the request",error.message);
+        res.end("Error with the request", error.message);
       });
       proxyRes.on("data", (chunk) => {
         // console.log("chunk->", chunk);
@@ -136,13 +136,13 @@ app.post("/api/chat/completions/stream", (req, res) => {
         try {
           const parsedData = JSON.parse(rawData);
           // console.log("Parsed data:", rawData);
-        //   res.writeHead(proxyRes.statusCode, proxyRes.headers);
+          //   res.writeHead(proxyRes.statusCode, proxyRes.headers);
           res.statusCode = proxyRes.statusCode;
-        
-          if(rawData.length > 0) {
-            if(rawData.indexOf("error") > -1) {
-                // console.log(parsedData.error);
-                res.statusCode = 500;
+
+          if (rawData.length > 0) {
+            if (rawData.indexOf("error") > -1) {
+              // console.log(parsedData.error);
+              res.statusCode = 500;
             }
             // res.write(rawData);
           }
@@ -163,9 +163,9 @@ app.post("/api/chat/completions/stream", (req, res) => {
 
 // 对于任何其他请求，均返回Vue.js的index.html文件
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-  });
-  
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.listen(port, () => {
   console.log(`ChatGPT proxy server is running at http://localhost:${port}`);
 });

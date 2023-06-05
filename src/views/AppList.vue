@@ -99,6 +99,7 @@ export default defineComponent({
       this.expandedRows[index] = !this.expandedRows[index];
     },
     async getAppList() {
+      var that = this;
       try {
         const resp = await axios.get("/api/gptapps/list");
         axios.defaults.headers.common["Authorization"] =
@@ -106,7 +107,9 @@ export default defineComponent({
         this.apps = resp.data;
       } catch (error) {
         console.error("Failed to fetch app list:", error);
-        // this.errorMsg = error.code + ":" + error.response.data;
+        if(error){
+          that.errorMsg = error.toString();
+        }
       }
     },
     goToChatGPT(appName: string) {

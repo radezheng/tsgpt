@@ -8,7 +8,7 @@
 - 聊天记录不会在后端保存，但可以使用APIM的日志管理和审计特性来管理。
 - 支持 GPT-3.5和 GPT-4 的流式API显示
 - 支持定义多种参数的多个聊天app, 不同的app不同的url, 可以分发给不同的人。也方便对比不同参数的效果。
-- 这个repo没有整合 AAD 认证和登录，需要的参考[tsgptAAD](https://github.com/radezheng/tsgptAADs)
+- 这个repo没有整合 AAD 认证和登录，需要的参考[tsgptAAD](https://github.com/radezheng/tsgptAAD)
 - 可以通过APIM的Policy实现多AOAI 后端的负载均衡，提高rate limit. 部署完后，参考后面负载均衡的部份。
 
 部署的架构参考:

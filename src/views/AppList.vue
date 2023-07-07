@@ -110,7 +110,7 @@ export default defineComponent({
         if(error){
           that.errorMsg = error.toString();
         }
-      }x
+      }
     },
     goToChatGPT(appName: string) {
       // const router = this.$router as Router;
